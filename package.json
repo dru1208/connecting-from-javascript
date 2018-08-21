@@ -1,0 +1,27 @@
+{
+  "name": "connecting-from-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test_script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dru1208/connecting-from-javascript.git"
+  },
+  "keywords": [
+    "postgre",
+    "knex"
+  ],
+  "author": "Andrew Hsieh",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "postgre": "1.0.0",
+    "knex": "1.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/dru1208/connecting-from-javascript/issues"
+  },
+  "homepage": "https://github.com/dru1208/connecting-from-javascript#readme"
+}

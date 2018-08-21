@@ -12,8 +12,7 @@ const client = new pg.Client({
 });
 
 const searchResult = (resultArray) => {
-  console.log('Searching...')
-  console.log(`Found ${resultArray.length} person(s) by the name of '${input}':`)
+  console.log(`Searching...\nFound ${resultArray.length} person(s) by the name of '${input}':`)
   let count = 1;
   for (let match of resultArray) {
     console.log(`- ${count}: ${match.first_name} ${match.last_name}, born ${String(match.birthdate).slice(0, 10)}`);
