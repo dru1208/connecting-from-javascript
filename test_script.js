@@ -11,31 +11,37 @@ const client = new pg.Client({
   ssl      : settings.ssl
 });
 
-
-client.connect((err) => {
-  if (err) {
-    return console.error("Connection Error", err);
+const searchResult = (resultArray) => {
+  console.log('Searching...')
+  console.log(`Found ${resultArray.length} person(s) by the name of '${input}':`)
+  let count = 1;
+  for (let match of resultArray) {
+    console.log(`- ${count}: ${match.first_name} ${match.last_name}, born ${String(match.birthdate).slice(0, 10)}`);
+    count += 1;
   }
-  let query =
-    `SELECT *
-      FROM famous_people
-      WHERE first_name = '${input}'
-        OR last_name = '${input}';`;
+}
 
-  client.query(query, [], (err, result) => {
+const query =
+  `SELECT *
+    FROM famous_people
+    WHERE first_name = '${input}'
+      OR last_name = '${input}';`;
+
+const getPeople = (query, callback) => {
+  client.connect((err) => {
     if (err) {
-      return console.error("error running query", err);
+      return console.error("Connection Error", err);
     }
-  const searchResult = function(resultArray) {
-    console.log(`Found ${resultArray.length} person(s) by the name of '${input}':`)
-    let count = 1;
-    for (let match of resultArray) {
-      console.log(`- ${count}: ${match.first_name} ${match.last_name}, born ${String(match.birthdate).slice(0, 10)}`);
-      count += 1;
-    }
-  }
-    let resultArray = result.rows;
-    searchResult(resultArray);
-    client.end();
+
+    client.query(query, [], (err, result) => {
+      if (err) {
+        return console.error("error running query", err);
+      }
+      let resultArray = result.rows;
+      callback(resultArray);
+      client.end();
+    });
   });
-});
+};
+
+getPeople(query, searchResult);
